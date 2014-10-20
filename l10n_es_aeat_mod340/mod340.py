@@ -40,10 +40,10 @@ class L10nEsAeatMod340Report(orm.Model):
         calculate_obj._calculate_records(cr, uid, ids, context)
         return True
 
-    def _name_get(self, cr, uid, ids, field_name, arg, context={}):
+    def _name_get(self, cr, uid, ids, field_name, arg, context=None):
         """Returns the report name"""
         result = {}
-        for report in self.browse(cr, uid, ids, context):
+        for report in self.browse(cr, uid, ids, context=context):
             result[report.id] = report.number
         return result
 
@@ -167,8 +167,9 @@ class L10nEsAeatMod340Received(orm.Model):
     _description = 'Invoices Received'
     _inherit = 'l10n.es.aeat.mod340.issued'
     _columns = {
-        'tax_line_ids': fields.one2many('l10n.es.aeat.mod340.tax_line_received',
-                                        'invoice_record_id', 'Tax lines'),
+        'tax_line_ids': fields.one2many(
+            'l10n.es.aeat.mod340.tax_line_received', 'invoice_record_id',
+            'Tax lines'),
     }
 
 
