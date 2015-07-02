@@ -64,12 +64,14 @@ class L10nEsAeatMod347Report(models.Model):
                 [('partner_id', 'child_of', partners.ids),
                  ('type', '=', invoice_type),
                  ('period_id', 'in', periods.ids),
-                 ('state', 'not in', ['draft', 'cancel'])])
+                 ('state', 'not in', ['draft', 'cancel']),
+                 ('not_in_mod347', '=', False)])
             refunds = invoice_obj.search(
                 [('partner_id', 'child_of', partners.ids),
                  ('type', '=', refund_type),
                  ('period_id', 'in', periods.ids),
-                 ('state', 'not in', ['draft', 'cancel'])])
+                 ('state', 'not in', ['draft', 'cancel']),
+                 ('not_in_mod347', '=', False)])
             # Calculate the invoiced amount
             # Remove IRPF tax for invoice amount
             invoice_amount = sum(x.amount_total_wo_irpf for x in invoices)
@@ -255,8 +257,6 @@ class L10nEsAeatMod347Report(models.Model):
         self.total_real_state_records = len(self.real_state_record_ids)
 
     number = fields.Char(default='347')
-    contact_name = fields.Char(string="Full Name", size=40)
-    contact_phone = fields.Char(string="Phone", size=9)
     group_by_vat = fields.Boolean(
         string='Group by VAT number', oldname='group_by_cif')
     only_supplier = fields.Boolean(string='Only Suppliers')
@@ -325,6 +325,10 @@ class L10nEsAeatMod347Report(models.Model):
                         _("All real state records state code field must be "
                           "filled."))
         return super(L10nEsAeatMod347Report, self).button_confirm()
+
+    def __init__(self, pool, cr):
+        self._aeat_number = '347'
+        super(L10nEsAeatMod347Report, self).__init__(pool, cr)
 
 
 class L10nEsAeatMod347PartnerRecord(models.Model):

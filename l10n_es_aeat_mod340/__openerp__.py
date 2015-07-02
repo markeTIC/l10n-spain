@@ -25,10 +25,12 @@
     'name': 'Generación de fichero modelo 340 y libro de IVA',
     'version': '2.0',
     'author': "Acysos S.L., "
-              "Francisco Pascual (Ting), "
+              "Ting, "
               "Nan-tic, "
+              "OpenMind Systems, "
+              "Serv. Tecnol. Avanzados - Pedro M. Baeza, "
               "Odoo Community Association (OCA)",
-    'website': 'www.acysos.com, www.ting.es, www.nan-tic.com',
+    'website': 'https://github.com/OCA/l10n-spain',
     'category': 'Localisation/Accounting',
     'description': '''
 Módulo para la presentación del modelo 340. Exportación a formato AEAT. Libro
@@ -71,14 +73,13 @@ Exportación de asientos resumen de facturas
     'data': [
         'report/report_view.xml',
         'wizard/export_mod340_to_boe.xml',
-        'mod340_view.xml',
-        'mod340_workflow.xml',
+        'views/mod340_view.xml',
         'security/ir.model.access.csv',
-        'res_partner_view.xml',
-        'mod340_sequence.xml',
-        'account_invoice_view.xml',
-        'account_view.xml',
-        'taxes_data.xml',
+        'views/res_partner_view.xml',
+        'data/mod340_sequence.xml',
+        'views/account_invoice_view.xml',
+        'views/account_view.xml',
+        'data/taxes_data.xml',
     ],
     'installable': True,
 }
